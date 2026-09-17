@@ -70,6 +70,53 @@ def annotate_regression_corr(data, x_param, y_param,fontsize=20, **kwargs):
                 fontsize=fontsize, ha='right', va='bottom', bbox=dict(facecolor='white', alpha=0))
 
 
+def annotate_regression_corr_bayes(data, x_param, y_param, **kwargs):
+    """
+    Calculate and annotate Pearson correlation, p-value, and Bayes factor.
+
+    BF10 = evidence for a non-zero correlation.
+    BF01 = evidence for a zero correlation.
+    """
+
+    # Keep only rows with valid data for this correlation
+    corr_data = data[[x_param, y_param]].dropna()
+
+    x = corr_data[x_param]
+    y = corr_data[y_param]
+    n = len(corr_data)
+
+    # Need at least 3 observations for a Pearson correlation
+    if n < 3:
+        return
+
+    r, p = pearsonr(x, y)
+
+    # Bayesian Pearson correlation test
+    bf10 = pg.bayesfactor_pearson(
+        r=r,
+        n=n,
+        alternative='two-sided'
+    )
+
+    bf01 = 1 / bf10
+
+    ax = plt.gca()
+
+    ax.text(
+        0.05, 0.95,
+        f"r = {r:.3f}\np = {p:.3f}\nbf₀₁ = {bf01:.3f}",
+        transform=ax.transAxes,
+        ha='left',
+        va='top',
+        fontsize=13,
+        bbox=dict(
+            boxstyle='round,pad=0.3',
+            facecolor='white',
+            edgecolor='none',
+            alpha=0.8
+        )
+    )
+
 def load_label_file(label_file):
     """Load a label file and return the indices of the vertices."""
     vertices = []
