@@ -1,4 +1,4 @@
-# Mitchell_DCN2026
+# Mitchell_VWFA-Anatomy_2026
 Code associated with:
 Mitchell, J. L., Yablonski, M., Jimenez, M., Chiu, H., & Yeatman, J. D. (2026). Anatomy of the Visual Word Form Area in Dyslexia. bioRxiv. [https://doi.org/10.64898/2026.07.31.742142](https://doi.org/10.64898/2026.07.31.742142)
 
